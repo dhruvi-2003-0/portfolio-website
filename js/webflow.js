@@ -42,6 +42,63 @@ function closeNav() {
     document.getElementById("myNav").style.width = "0%";
 }
 
+const cursor = document.querySelector('.cursor');
+const cursorinner = document.querySelector('.cursor2');
+const a = document.querySelectorAll('a');
+
+document.addEventListener('mousemove', (e) => {
+    const x = e.clientX;
+    // console.log(`the x pos= ${x}`);
+    const y = e.clientY;
+    cursor.style.transform = `translate3d(calc(${x}px - 50%), calc(${y}px - 50%), 0)`;
+  });
+
+document.addEventListener('mousemove', (e) => {
+  const x = e.clientX;
+  const y = e.clientY;
+  cursorinner.style.left = `${x}px`;
+  cursorinner.style.top = `${y}px`;
+});
+
+document.addEventListener('mousedown', () => {
+  cursorinner.classList.add('cursorinnerhover');
+});
+
+document.addEventListener('mouseup', () => {
+  cursorinner.classList.remove('cursorinnerhover');
+});
+
+a.forEach(item => {
+  // console.log(item);
+  item.addEventListener('mouseover', () => {
+    cursor.classList.add('hover');
+  });
+  item.addEventListener('mouseleave', () => {
+    cursor.classList.remove('hover');
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  const revealElements = document.querySelectorAll('.element-to-reveal');
+  
+  const revealOnScroll = () => {
+    for (let i = 0; i < revealElements.length; i++) {
+      const windowHeight = window.innerHeight;
+      const elementTop = revealElements[i].getBoundingClientRect().top;
+      const elementVisible = 150; // Adjust based on when you want the element to start appearing
+
+      if (elementTop < windowHeight - elementVisible) {
+        revealElements[i].classList.add('revealed');
+      } else {
+        revealElements[i].classList.remove('revealed');
+      }
+    }
+  };
+
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll(); // To check the scroll position on page load
+});
+
 $(document).ready(function() {
   var containers = $('.container');
 
